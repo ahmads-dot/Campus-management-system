@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - Campus Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .sidebar {
+            width: 230px;
+            height: 100vh;
+            background-color: #183b56;
+            position: fixed;
+            padding: 25px 15px;
+            color: white;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 24px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 13px 15px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #315b78;
+        }
+
+        .main {
+            margin-left: 230px;
+            padding: 25px;
+        }
+
+        .header {
+            background-color: white;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .logout {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            color: #183b56;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: white;
+        }
+
+        .add-btn {
+            background-color: #183b56;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 5px;
+            margin-top: 18px;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background-color: #315b78;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #183b56;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .grade {
+            font-weight: bold;
+            color: #183b56;
+        }
+
+        @media (max-width: 750px) {
+            .sidebar {
+                width: 170px;
+            }
+
+            .main {
+                margin-left: 170px;
+                padding: 15px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <h2>Campus MS</h2>
+
+        <a href="dashboard.html">Dashboard</a>
+        <a href="students.html">Students</a>
+        <a href="teachers.html">Teachers</a>
+        <a href="departments.html">Departments</a>
+        <a href="courses.html">Courses</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="results.html" class="active">Results</a>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <div class="header">
+            <h2>Results Management</h2>
+
+            <button class="logout" onclick="logout()">
+                Logout
+            </button>
+        </div>
+
+
+        <!-- Add Result Form -->
+        <div class="container">
+
+            <h2>Add Student Result</h2>
+
+            <form id="resultForm">
+
+                <div class="form-grid">
+
+                    <select id="student" required>
+                        <option value="">Select Student</option>
+                        <option>Ali Ahmed</option>
+                        <option>Usman Khan</option>
+                        <option>Hassan Raza</option>
+                    </select>
+
+                    <select id="course" required>
+                        <option value="">Select Course</option>
+                        <option>Programming Fundamentals</option>
+                        <option>Object Oriented Programming</option>
+                        <option>Database Systems</option>
+                    </select>
+
+                    <input type="number" id="obtainedMarks"
+                        placeholder="Obtained Marks" min="0" required>
+
+                    <input type="number" id="totalMarks"
+                        placeholder="Total Marks" min="1" required>
+
+                </div>
+
+                <button type="submit" class="add-btn">
+                    Add Result
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Results Table -->
+        <div class="container">
+
+            <h2>Student Results</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                        <th>Obtained Marks</th>
+                        <th>Total Marks</th>
+                        <th>Percentage</th>
+                        <th>Grade</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="resultTable">
+
+                    <tr>
+                        <td>Ali Ahmed</td>
+                        <td>Programming Fundamentals</td>
+                        <td>85</td>
+                        <td>100</td>
+                        <td>85%</td>
+                        <td class="grade">A</td>
+                        <td>
+                            <button class="delete-btn"
+                                onclick="deleteResult(this)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Usman Khan</td>
+                        <td>Database Systems</td>
+                        <td>72</td>
+                        <td>100</td>
+                        <td>72%</td>
+                        <td class="grade">B</td>
+                        <td>
+                            <button class="delete-btn"
+                                onclick="deleteResult(this)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // Calculate Grade
+        function calculateGrade(percentage) {
+
+            if (percentage >= 80) {
+                return "A";
+            }
+            else if (percentage >= 70) {
+                return "B";
+            }
+            else if (percentage >= 60) {
+                return "C";
+            }
+            else if (percentage >= 50) {
+                return "D";
+            }
+            else {
+                return "F";
+            }
+
+        }
+
+
+        // Add Result
+        document.getElementById("resultForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            let student = document.getElementById("student").value;
+            let course = document.getElementById("course").value;
+
+            let obtained = Number(
+                document.getElementById("obtainedMarks").value
+            );
+
+            let total = Number(
+                document.getElementById("totalMarks").value
+            );
+
+            if (total <= 0 || obtained < 0 || obtained > total) {
+                alert("Please enter valid marks.");
+                return;
+            }
+
+            let percentage = (obtained / total) * 100;
+
+            let grade = calculateGrade(percentage);
+
+            let table = document.getElementById("resultTable");
+
+            let row = table.insertRow();
+
+            let values = [
+                student,
+                course,
+                obtained,
+                total,
+                percentage.toFixed(2) + "%",
+                grade
+            ];
+
+            values.forEach(function(value, index) {
+
+                let cell = row.insertCell();
+                cell.textContent = value;
+
+                if (index === 5) {
+                    cell.className = "grade";
+                }
+
+            });
+
+            let actionCell = row.insertCell();
+
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "delete-btn";
+
+            deleteButton.onclick = function() {
+                deleteResult(deleteButton);
+            };
+
+            actionCell.appendChild(deleteButton);
+
+            document.getElementById("resultForm").reset();
+
+        });
+
+
+        // Delete Result
+        function deleteResult(button) {
+
+            let row = button.parentElement.parentElement;
+            row.remove();
+
+        }
+
+
+        // Logout
+        function logout() {
+
+            window.location.href = "index.html";
+
+        }
+
+    </script>
+
+</body>
+</html>
