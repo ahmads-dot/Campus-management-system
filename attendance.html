@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance - Campus Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .sidebar {
+            width: 230px;
+            height: 100vh;
+            background-color: #183b56;
+            position: fixed;
+            padding: 25px 15px;
+            color: white;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 24px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 13px 15px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #315b78;
+        }
+
+        .main {
+            margin-left: 230px;
+            padding: 25px;
+        }
+
+        .header {
+            background-color: white;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .logout {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            color: #183b56;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: white;
+        }
+
+        .add-btn {
+            background-color: #183b56;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 5px;
+            margin-top: 18px;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background-color: #315b78;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #183b56;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .present {
+            color: green;
+            font-weight: bold;
+        }
+
+        .absent {
+            color: red;
+            font-weight: bold;
+        }
+
+        @media (max-width: 750px) {
+            .sidebar {
+                width: 170px;
+            }
+
+            .main {
+                margin-left: 170px;
+                padding: 15px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <h2>Campus MS</h2>
+
+        <a href="dashboard.html">Dashboard</a>
+        <a href="students.html">Students</a>
+        <a href="teachers.html">Teachers</a>
+        <a href="departments.html">Departments</a>
+        <a href="courses.html">Courses</a>
+        <a href="attendance.html" class="active">Attendance</a>
+        <a href="results.html">Results</a>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <div class="header">
+            <h2>Attendance Management</h2>
+
+            <button class="logout" onclick="logout()">
+                Logout
+            </button>
+        </div>
+
+
+        <!-- Mark Attendance Form -->
+        <div class="container">
+
+            <h2>Mark Student Attendance</h2>
+
+            <form id="attendanceForm">
+
+                <div class="form-grid">
+
+                    <select id="student" required>
+                        <option value="">Select Student</option>
+                        <option>Ali Ahmed</option>
+                        <option>Usman Khan</option>
+                        <option>Hassan Raza</option>
+                    </select>
+
+                    <select id="course" required>
+                        <option value="">Select Course</option>
+                        <option>Programming Fundamentals</option>
+                        <option>Object Oriented Programming</option>
+                        <option>Database Systems</option>
+                    </select>
+
+                    <input type="date" id="date" required>
+
+                    <select id="status" required>
+                        <option value="">Select Status</option>
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                    </select>
+
+                </div>
+
+                <button type="submit" class="add-btn">
+                    Mark Attendance
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Attendance Records -->
+        <div class="container">
+
+            <h2>Attendance Records</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="attendanceTable">
+
+                    <tr>
+                        <td>Ali Ahmed</td>
+                        <td>Programming Fundamentals</td>
+                        <td>2026-11-25</td>
+                        <td class="present">Present</td>
+                        <td>
+                            <button class="delete-btn"
+                                onclick="deleteAttendance(this)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Usman Khan</td>
+                        <td>Database Systems</td>
+                        <td>2026-11-25</td>
+                        <td class="absent">Absent</td>
+                        <td>
+                            <button class="delete-btn"
+                                onclick="deleteAttendance(this)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // Mark Attendance
+        document.getElementById("attendanceForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            let student = document.getElementById("student").value;
+            let course = document.getElementById("course").value;
+            let date = document.getElementById("date").value;
+            let status = document.getElementById("status").value;
+
+            let table = document.getElementById("attendanceTable");
+
+            let row = table.insertRow();
+
+            let values = [student, course, date, status];
+
+            values.forEach(function(value, index) {
+
+                let cell = row.insertCell();
+                cell.textContent = value;
+
+                if (index === 3) {
+
+                    if (status === "Present") {
+                        cell.className = "present";
+                    } else {
+                        cell.className = "absent";
+                    }
+
+                }
+
+            });
+
+            let actionCell = row.insertCell();
+
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "delete-btn";
+
+            deleteButton.onclick = function() {
+                deleteAttendance(deleteButton);
+            };
+
+            actionCell.appendChild(deleteButton);
+
+            document.getElementById("attendanceForm").reset();
+
+        });
+
+
+        // Delete Attendance
+        function deleteAttendance(button) {
+
+            let row = button.parentElement.parentElement;
+            row.remove();
+
+        }
+
+
+        // Logout
+        function logout() {
+
+            window.location.href = "index.html";
+
+        }
+
+    </script>
+
+</body>
+</html>
