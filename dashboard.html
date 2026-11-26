@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f4f9;
+        }
+
+        .sidebar {
+            width: 230px;
+            height: 100vh;
+            background-color: #183b56;
+            color: white;
+            position: fixed;
+            padding: 25px 15px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 24px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #315b78;
+        }
+
+        .main {
+            margin-left: 230px;
+            padding: 25px;
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header h2 {
+            color: #183b56;
+        }
+
+        .logout {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            color: #183b56;
+            margin-bottom: 8px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .card h1 {
+            color: #183b56;
+            font-size: 32px;
+        }
+
+        .announcements {
+            background-color: white;
+            padding: 25px;
+            margin-top: 25px;
+            border-radius: 8px;
+        }
+
+        .announcements h2 {
+            color: #183b56;
+            margin-bottom: 18px;
+        }
+
+        .announcements p {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        @media (max-width: 650px) {
+            .sidebar {
+                width: 150px;
+                padding: 15px 8px;
+            }
+
+            .sidebar h2 {
+                font-size: 16px;
+            }
+
+            .main {
+                margin-left: 150px;
+                padding: 12px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .header h2 {
+                font-size: 17px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+
+        <h2>Campus MS</h2>
+
+        <a href="#" class="active">Dashboard</a>
+        <a href="students.html">Students</a>
+        <a href="teachers.html">Teachers</a>
+        <a href="departments.html">Departments</a>
+        <a href="courses.html">Courses</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="results.html">Results</a>
+
+    </div>
+
+
+    <!-- Main Content -->
+
+    <div class="main">
+
+        <div class="header">
+
+            <h2>Admin Dashboard</h2>
+
+            <button class="logout" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+
+        <div class="welcome">
+
+            <h2>Welcome, Admin!</h2>
+
+            <p>Welcome to Campus Management System.</p>
+
+        </div>
+
+
+        <!-- Dashboard Cards -->
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Total Students</h3>
+                <h1>500</h1>
+            </div>
+
+            <div class="card">
+                <h3>Total Teachers</h3>
+                <h1>75</h1>
+            </div>
+
+            <div class="card">
+                <h3>Total Courses</h3>
+                <h1>50</h1>
+            </div>
+
+            <div class="card">
+                <h3>Total Departments</h3>
+                <h1>10</h1>
+            </div>
+
+        </div>
+
+
+        <!-- Announcements -->
+
+        <div class="announcements">
+
+            <h2>Recent Announcements</h2>
+
+            <p>1. Midterm examinations will start next week.</p>
+
+            <p>2. Students should check their attendance regularly.</p>
+
+            <p>3. Course registration is now open.</p>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function logout() {
+
+            window.location.href = "index.html";
+
+        }
+
+        function showMessage(section) {
+
+            alert(section + " page will be available soon.");
+
+        }
+
+    </script>
+
+</body>
+</html>
