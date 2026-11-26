@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f4f9;
+        }
+
+        .sidebar {
+            width: 230px;
+            height: 100vh;
+            background-color: #183b56;
+            color: white;
+            position: fixed;
+            padding: 25px 15px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #315b78;
+        }
+
+        .main {
+            margin-left: 230px;
+            padding: 25px;
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .header h2 {
+            color: #183b56;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .form-container h3 {
+            color: #183b56;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .add-btn {
+            margin-top: 20px;
+            background-color: #183b56;
+            color: white;
+            padding: 12px 22px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .table-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .table-container h3 {
+            color: #183b56;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th, td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #183b56;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        @media(max-width: 650px) {
+            .sidebar {
+                width: 150px;
+                padding: 15px 8px;
+            }
+
+            .sidebar h2 {
+                font-size: 16px;
+            }
+
+            .main {
+                margin-left: 150px;
+                padding: 12px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+
+        <h2>Campus MS</h2>
+
+        <a href="dashboard.html">Dashboard</a>
+        <a href="students.html" class="active">Students</a>
+        <a href="teachers.html">Teachers</a>
+        <a href="departments.html">Departments</a>
+        <a href="courses.html">Courses</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="results.html">Results</a>
+
+    </div>
+
+
+    <!-- Main Content -->
+
+    <div class="main">
+
+        <div class="header">
+            <h2>Student Management</h2>
+        </div>
+
+
+        <!-- Add Student Form -->
+
+        <div class="form-container">
+
+            <h3>Add New Student</h3>
+
+            <form id="studentForm">
+
+                <div class="form-grid">
+
+                    <div>
+                        <label>Student ID</label>
+                        <input type="text" id="studentId"
+                               placeholder="Enter Student ID" required>
+                    </div>
+
+                    <div>
+                        <label>Student Name</label>
+                        <input type="text" id="studentName"
+                               placeholder="Enter Student Name" required>
+                    </div>
+
+                    <div>
+                        <label>Registration Number</label>
+                        <input type="text" id="regNo"
+                               placeholder="Enter Registration Number" required>
+                    </div>
+
+                    <div>
+                        <label>Department</label>
+                        <select id="department" required>
+                            <option value="">Select Department</option>
+                            <option>Computer Science</option>
+                            <option>Information Technology</option>
+                            <option>Software Engineering</option>
+                            <option>Data Science</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Semester</label>
+                        <select id="semester" required>
+                            <option value="">Select Semester</option>
+                            <option>1st Semester</option>
+                            <option>2nd Semester</option>
+                            <option>3rd Semester</option>
+                            <option>4th Semester</option>
+                            <option>5th Semester</option>
+                            <option>6th Semester</option>
+                            <option>7th Semester</option>
+                            <option>8th Semester</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Email</label>
+                        <input type="email" id="email"
+                               placeholder="Enter Email" required>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="add-btn">
+                    Add Student
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Student Records -->
+
+        <div class="table-container">
+
+            <h3>Student Records</h3>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Registration No.</th>
+                        <th>Department</th>
+                        <th>Semester</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="studentTable">
+
+                    <tr>
+                        <td>101</td>
+                        <td>Ali Ahmed</td>
+                        <td>2025-CS-101</td>
+                        <td>Computer Science</td>
+                        <td>3rd Semester</td>
+                        <td>ali@gmail.com</td>
+                        <td>
+                            <button class="delete-btn"
+                            onclick="this.closest('tr').remove()">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        document.getElementById("studentForm").addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            let id = document.getElementById("studentId").value;
+            let name = document.getElementById("studentName").value;
+            let reg = document.getElementById("regNo").value;
+            let department = document.getElementById("department").value;
+            let semester = document.getElementById("semester").value;
+            let email = document.getElementById("email").value;
+
+            let table = document.getElementById("studentTable");
+
+            let row = table.insertRow();
+
+            row.innerHTML = `
+                <td>${id}</td>
+                <td>${name}</td>
+                <td>${reg}</td>
+                <td>${department}</td>
+                <td>${semester}</td>
+                <td>${email}</td>
+                <td>
+                    <button class="delete-btn"
+                    onclick="this.closest('tr').remove()">
+                        Delete
+                    </button>
+                </td>
+            `;
+
+            document.getElementById("studentForm").reset();
+
+            alert("Student added successfully!");
+
+        });
+
+    </script>
+
+</body>
+</html>
